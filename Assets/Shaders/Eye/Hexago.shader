@@ -6,7 +6,9 @@ Shader "Hexagogb"
         _RotationSpeed ("Rotation Speed", Range(0, 100)) = 1.0
         _ShapeSize ("Shape Size", Range(0.1, 1.0)) = 0.5
         _NumShapes ("Number of Shapes", Range(1, 10)) = 5
-        _AnimationSpeed ("Animation Speed", Range(0.1, 5.0)) = 1.0
+        _AnimationSpeed ("Animation Speed", Range(0, 100.0)) = 1.0
+        _ColorChangeSpeed ("Color Change Speed", Range(0, 25.0)) = 1.0
+        _ShapeJitterSpeed ("Shape Jitter Speed", Range(0, 10.0)) = 1.0
 
         _TopTexture ("Top Texture", 2D) = "white" {}
         _TextureScale ("Texture Scale", Range(0.1, 10.0)) = 1.0
@@ -29,7 +31,9 @@ Shader "Hexagogb"
         float _RotationSpeed;
         float _ShapeSize;
         float _NumShapes;
+        float _ShapeJitterSpeed;
         float _AnimationSpeed;
+        float _ColorChangeSpeed;
         float _TextureScale;
         float4 _BackgroundColor;
         int _ShapeType;
@@ -74,14 +78,16 @@ Shader "Hexagogb"
         {
             float2 uv = IN.uv_TopTexture;
 
-            float time = _Time.y * (_AnimationSpeed *0.1);
+            float time = _Time.y;//* (_AnimationSpeed *0.1);
+
+            float colorTime = time * _ColorChangeSpeed;
 
             // Rotate UVs
-            float angle = time * (_RotationSpeed * 0.1f);
+            float angle = time * (_RotationSpeed);
             uv = rotateUV(uv, angle);
 
             // Generate psychedelic colors
-            float3 psychedelicColor = float3(sin(time), cos(time), sin(time * 0.5));
+            float3 psychedelicColor = float3(sin(colorTime), cos(colorTime), sin(colorTime * 0.5));
 
             // Choose shape type
             float dist = 0.0;
@@ -94,11 +100,13 @@ Shader "Hexagogb"
                 dist = diamond(uv);
             }
 
+            float shapeTime = time * _ShapeJitterSpeed;
+
             // Add additional shapes for chaos
             float3 finalColor = float3(0, 0, 0);
             for (int i = 0; i < _NumShapes; ++i)
             {
-                float2 offset = float2(sin(i + time) * 0.5, cos(i + time) * 0.5);
+                float2 offset = float2(sin(i + shapeTime) * 0.5, cos(i + shapeTime) * 0.5);
                 float2 newUV = uv + offset;
                 newUV = frac(newUV);
                 if (_ShapeType == 0)

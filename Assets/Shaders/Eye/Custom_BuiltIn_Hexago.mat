@@ -28,17 +28,19 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TopTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 97669191864ae164ba2a083ee5a9e915, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AnimationSpeed: 0.1
-    - _NumShapes: 1
-    - _RotationSpeed: 47.4
-    - _ShapeSize: 0.229
+    - _AnimationSpeed: 17.8
+    - _ColorChangeSpeed: 12.8
+    - _NumShapes: 4.52
+    - _RotationSpeed: 11.4
+    - _ShapeJitterSpeed: 6.14
+    - _ShapeSize: 0.724
     - _ShapeType: 0
-    - _TextureScale: 0.82
+    - _TextureScale: 0.1
     m_Colors:
     - _BackgroundColor: {r: 1, g: 1, b: 1, a: 1}
     - _ShapeColor: {r: 1, g: 1, b: 1, a: 1}

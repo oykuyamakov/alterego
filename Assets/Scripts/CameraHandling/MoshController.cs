@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Timers;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -85,6 +86,10 @@ namespace CameraHandling
         [SerializeField][Tooltip("Duration to stay on VIDEO view")]
         private float m_StayOnVideoTime;
 
+        [SerializeField] private float m_InitialWait = 60;
+
+        private bool m_Started = false;
+        
         private int m_Switcher = 0;
         
         private float m_Timer;
@@ -148,7 +153,14 @@ namespace CameraHandling
         {
             while (true)
             {
-                yield return new WaitForSeconds(Interval);
+                var interval = !m_Started ? m_InitialWait : Interval;
+                yield return new WaitForSeconds(interval);
+                if (!m_Started)
+                {
+                    m_StayOnCamTime = 11;
+                }
+                m_Started = true;
+                Debug.Log("Kicking glitch");
                 KickGlitch();
             }
         }
@@ -249,7 +261,8 @@ namespace CameraHandling
             
         }
         
-        void KickGlitch()
+        [Button]
+        public void KickGlitch()
         {
             Glitch();
             

@@ -34,10 +34,10 @@ Material:
     m_Ints: []
     m_Floats:
     - _BPM: 15.09
-    - _FloatSpeed: 4.1
+    - _FloatSpeed: 1.88
     - _Glossiness: 0.069
     - _Time: 0
-    - _TimeSpeed: 0.825
+    - _TimeSpeed: 0.531
     m_Colors:
     - _AudioData: {r: 0, g: 0, b: 0, a: 0}
     - _EyeColor: {r: 0.07389933, g: 0.07389933, b: 0.5, a: 1}
